@@ -15,6 +15,7 @@ import {
   TimeEntry as PrismaTimeEntry,
   User as PrismaUser,
 } from "@prisma/client";
+import { StoreTimeEntryInput } from "../StoreTimeEntryInput";
 
 export class TimeEntryServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -57,5 +58,8 @@ export class TimeEntryServiceBase {
         where: { id: parentId },
       })
       .user();
+  }
+  async StoreTimeEntry(args: StoreTimeEntryInput): Promise<string> {
+    throw new Error("Not implemented");
   }
 }

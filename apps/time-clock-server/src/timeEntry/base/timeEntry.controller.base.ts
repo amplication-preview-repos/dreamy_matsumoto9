@@ -26,6 +26,7 @@ import { TimeEntry } from "./TimeEntry";
 import { TimeEntryFindManyArgs } from "./TimeEntryFindManyArgs";
 import { TimeEntryWhereUniqueInput } from "./TimeEntryWhereUniqueInput";
 import { TimeEntryUpdateInput } from "./TimeEntryUpdateInput";
+import { StoreTimeEntryInput } from "../StoreTimeEntryInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -236,5 +237,22 @@ export class TimeEntryControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Post("/time_entries")
+  @swagger.ApiOkResponse({
+    type: String,
+  })
+  @swagger.ApiNotFoundResponse({
+    type: errors.NotFoundException,
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async StoreTimeEntry(
+    @common.Body()
+    body: StoreTimeEntryInput
+  ): Promise<string> {
+    return this.service.StoreTimeEntry(body);
   }
 }

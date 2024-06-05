@@ -27,6 +27,7 @@ import { CreateTimeEntryArgs } from "./CreateTimeEntryArgs";
 import { UpdateTimeEntryArgs } from "./UpdateTimeEntryArgs";
 import { DeleteTimeEntryArgs } from "./DeleteTimeEntryArgs";
 import { User } from "../../user/base/User";
+import { StoreTimeEntryInput } from "../StoreTimeEntryInput";
 import { TimeEntryService } from "../timeEntry.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => TimeEntry)
@@ -176,5 +177,13 @@ export class TimeEntryResolverBase {
       return null;
     }
     return result;
+  }
+
+  @graphql.Mutation(() => String)
+  async StoreTimeEntry(
+    @graphql.Args()
+    args: StoreTimeEntryInput
+  ): Promise<string> {
+    return this.service.StoreTimeEntry(args);
   }
 }
